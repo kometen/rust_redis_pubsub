@@ -1,0 +1,46 @@
+#docker-compose.yml
+version: '3'
+services:
+  web_service:
+    build:
+      context: .
+      dockerfile: ./web_service/Dockerfile
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - redis
+    ports:
+      - "3000:3000"
+
+  user_service_1:
+    environment:
+      - NAME=Eline
+    build:
+      context: .
+      dockerfile: ./user_service/Dockerfile
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - redis
+    ports:
+      - "3001:3001"
+
+  user_service_2:
+    environment:
+      - NAME=Ranveig
+    build:
+      context: .
+      dockerfile: ./user_service/Dockerfile
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - redis
+    ports:
+      - "3002:3001"
+
+  redis:
+    build:
+      context: .
+      dockerfile: ./redis/Dockerfile
+    volumes:
+    - ./redis.conf:/usr/local/etc/redis/redis.conf
