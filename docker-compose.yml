@@ -27,7 +27,7 @@ services:
 
   user_service_2:
     environment:
-      - NAME=Ranveig
+      - NAME=Rannveig
     build:
       context: .
       dockerfile: ./user_service/Dockerfile
